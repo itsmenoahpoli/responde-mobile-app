@@ -1,14 +1,29 @@
 import React from "react";
 import { View } from "react-native";
-import { Text } from "react-native-paper";
+import { Headline } from "react-native-paper";
 
 import { SafeAreaLayout } from "./../../components/layouts";
+
+const splashScreenStyles = {
+  mainContainer: {
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  headline: { textAlign: "center", fontWeight: "bold" },
+};
 
 export const WelcomeScreen = () => {
   return (
     <SafeAreaLayout>
-      <View>
-        <Text>Welcome Screen</Text>
+      <View style={splashScreenStyles.mainContainer}>
+        <View>
+          <Headline style={splashScreenStyles.headline}>
+            GO RESPONDE APP
+          </Headline>
+        </View>
       </View>
     </SafeAreaLayout>
   );
