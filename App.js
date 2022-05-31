@@ -1,4 +1,9 @@
 import React from "react";
+import {
+  Provider as PaperProvider,
+  DefaultTheme,
+  configureFonts,
+} from "react-native-paper";
 
 // Navigation
 import { NavigationContainer } from "@react-navigation/native";
@@ -10,24 +15,48 @@ import { appRoutes } from "./src/lib/routes";
 // App nav config
 import { APP_NAV_CONFIG } from "./src/lib/configs";
 
+const goRespondeAppTheme = {
+  ...DefaultTheme,
+  android: {
+    regular: {
+      fontFamily: "sans-serif",
+      fontWeight: "normal",
+    },
+    // medium: {
+    //   fontFamily: "sans-serif-medium",
+    //   fontWeight: "normal",
+    // },
+    // light: {
+    //   fontFamily: "sans-serif-light",
+    //   fontWeight: "normal",
+    // },
+    // thin: {
+    //   fontFamily: "sans-serif-thin",
+    //   fontWeight: "normal",
+    // },
+  },
+};
+
 const App = () => {
   const Stack = createNativeStackNavigator();
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={APP_NAV_CONFIG.initialRouteName}
-        screenOptions={APP_NAV_CONFIG.screenOptions}
-      >
-        {appRoutes.map((route) => (
-          <Stack.Screen
-            key={route.name}
-            name={route.name}
-            component={route.component}
-          />
-        ))}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <PaperProvider theme={goRespondeAppTheme}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName={APP_NAV_CONFIG.initialRouteName}
+          screenOptions={APP_NAV_CONFIG.screenOptions}
+        >
+          {appRoutes.map((route) => (
+            <Stack.Screen
+              key={route.name}
+              name={route.name}
+              component={route.component}
+            />
+          ))}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   );
 };
 

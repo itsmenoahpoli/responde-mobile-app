@@ -11,7 +11,13 @@ export const SafeAreaLayout = (props) => {
 
   return (
     <SafeAreaView forceInset={SAFE_AREA_INSET}>
-      <View style={{ height: "100%", backgroundColor: "#EEEEEE" }}>
+      <View
+        style={{
+          height: "100%",
+          backgroundColor: "#FFFFFF",
+          fontWeight: "bold",
+        }}
+      >
         {children}
       </View>
     </SafeAreaView>

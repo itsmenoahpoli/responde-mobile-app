@@ -1,30 +1,79 @@
 import React from "react";
-import { View } from "react-native";
-import { Headline } from "react-native-paper";
+import { View, Image, Text, ActivityIndicator } from "react-native";
+import { Portal, Dialog, Button } from "react-native-paper";
 
 import { SafeAreaLayout } from "./../../components/layouts";
+import { splashScreenStyles } from "./../../styles/screens";
+import { checkNetworkConnection } from "./../../lib/utilities";
+import emergencyHelpIllustration from "./../../../assets/emergency-help.png";
 
-const splashScreenStyles = {
-  mainContainer: {
-    height: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+export const WelcomeScreen = (props) => {
+  const { navigation } = props;
 
-  headline: { textAlign: "center", fontWeight: "bold" },
-};
+  const [dialog, setDialog] = React.useState({
+    show: false,
+    message: "Internet connection is required to use this app",
+  });
 
-export const WelcomeScreen = () => {
+  const redirectToAuthScreen = () => {
+    let hasInternetConnection = checkNetworkConnection();
+
+    if (hasInternetConnection) {
+      setTimeout(() => {
+        navigation.navigate("LOG-IN");
+      }, 2000);
+
+      toggleDialog(false);
+
+      return;
+    }
+
+    toggleDialog(true);
+  };
+
+  const toggleDialog = (isShown) => {
+    setDialog({ ...dialog, show: isShown });
+  };
+
+  React.useEffect(() => {
+    redirectToAuthScreen();
+  }, []);
+
   return (
     <SafeAreaLayout>
       <View style={splashScreenStyles.mainContainer}>
         <View>
-          <Headline style={splashScreenStyles.headline}>
-            GO RESPONDE APP
-          </Headline>
+          <Image
+            source={emergencyHelpIllustration}
+            resizeMode="contain"
+            style={splashScreenStyles.image}
+          />
+
+          {!Boolean(dialog.show) && (
+            <View style={splashScreenStyles.loaderContainer}>
+              <ActivityIndicator size="large" color="lightcoral" />
+
+              <Text style={splashScreenStyles.loaderContainer.label}>
+                CONNECTING TO GO-RESPONDE
+              </Text>
+            </View>
+          )}
         </View>
+
+        <Text style={splashScreenStyles.appVersionLabel}>v1.0.0 (beta)</Text>
       </View>
+
+      <Portal>
+        <Dialog visible={dialog.show} onDismiss={() => toggleDialog(false)}>
+          <Dialog.Content>
+            <Text>{dialog.message}</Text>
+          </Dialog.Content>
+
+          <Dialog.Actions>
+            <Button onPress={() => toggleDialog(false)}>Okay</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </SafeAreaLayout>
   );
 };
