@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Image, Text, ActivityIndicator } from "react-native";
-import { Portal, Dialog, Button } from "react-native-paper";
+import { View, Image, ActivityIndicator } from "react-native";
+import { Paragraph, Portal, Dialog, Button } from "react-native-paper";
 
 import { SafeAreaLayout } from "./../../components/layouts";
 import { splashScreenStyles } from "./../../styles/screens";
@@ -51,22 +51,24 @@ export const WelcomeScreen = (props) => {
 
           {!Boolean(dialog.show) && (
             <View style={splashScreenStyles.loaderContainer}>
-              <ActivityIndicator size="large" color="lightcoral" />
+              <ActivityIndicator size="large" color="#555" />
 
-              <Text style={splashScreenStyles.loaderContainer.label}>
+              <Paragraph style={splashScreenStyles.loaderContainer.label}>
                 CONNECTING TO GO-RESPONDE
-              </Text>
+              </Paragraph>
             </View>
           )}
         </View>
 
-        <Text style={splashScreenStyles.appVersionLabel}>v1.0.0 (beta)</Text>
+        <Paragraph style={splashScreenStyles.appVersionLabel}>
+          v1.0.0 (beta)
+        </Paragraph>
       </View>
 
       <Portal>
         <Dialog visible={dialog.show} onDismiss={() => toggleDialog(false)}>
           <Dialog.Content>
-            <Text>{dialog.message}</Text>
+            <Paragraph>{dialog.message}</Paragraph>
           </Dialog.Content>
 
           <Dialog.Actions>

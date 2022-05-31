@@ -4,6 +4,7 @@ import { View } from "react-native";
 
 const SAFE_AREA_INSET = {
   top: "always",
+  bottom: "always",
 };
 
 export const SafeAreaLayout = (props) => {
