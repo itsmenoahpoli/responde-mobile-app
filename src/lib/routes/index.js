@@ -1,6 +1,8 @@
 import { WelcomeScreen } from "./../../screens/welcome";
 
-import { LoginScreen } from "./../../screens/auth";
+import { RegisterScreen } from "./../../screens/auth";
+
+import { DashboardScreen } from "../../screens/dashboard/DashboardScreen";
 
 export const appRoutes = [
   {
@@ -9,7 +11,12 @@ export const appRoutes = [
   },
 
   {
-    name: "LOG-IN",
-    component: LoginScreen,
+    name: "REGISTER",
+    component: RegisterScreen,
+  },
+
+  {
+    name: "DASHBOARD",
+    component: DashboardScreen,
   },
 ];
